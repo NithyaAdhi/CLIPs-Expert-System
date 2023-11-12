@@ -1,0 +1,119 @@
+
+(defrule p1
+ ?ifYesNoChoice1 <- (start)
+ =>
+ (printout t crlf crlf "Is computer unable to connect to the internet?(yes/no) " crlf "Your answer: " )
+ (assert (computer not connects(read)))
+ (retract ?ifYesNoChoice1))
+
+
+(defrule rule8
+ (computer not connects no)
+ =>
+ (printout t crlf "There is a problem with the power source and connections !!!" crlf crlf))
+
+
+(defrule p3
+ (computer not connects yes)
+ =>
+ (printout t crlf crlf "Is the Wi-Fi adapter turned on ?(yes/no) " crlf "Your answer: " )
+ (assert (Wi-Fi turns(read))))
+
+
+(defrule p4
+ (computer not connects yes)
+ (Wi-Fi turns yes)
+ =>
+ (printout t crlf crlf "Can other devices in the same network connect to the internet?(yes/no) " crlf "Your answer: ")
+ (assert (other devices in the same network connect (read))))
+
+(defrule p5
+ (computer not connects yes)
+ (Wi-Fi turns yes)
+ (other devices in the same network connect yes)
+ =>
+ (printout t crlf crlf "Is Wi-Fi signal strength good?(yes/no) " crlf "Your answer: ")
+ (assert (Wi-Fi signal strength good (read))))
+
+(defrule p6
+ (computer not connects yes)
+ (Wi-Fi turns yes)
+ (other devices in the same network connect yes)
+ (Wi-Fi signal strength good yes)
+ =>
+ (printout t crlf crlf "Is the correct Wi-Fi password entered?(yes/no) " crlf "Your answer: ")
+ (assert (Wi-Fi password correct  (read))))
+
+(defrule rule1
+ (computer not connects yes)
+ (Wi-Fi turns yes)
+ (other devices in the same network connect yes)
+ (Wi-Fi signal strength good yes)
+ (Wi-Fi password correct yes)
+ =>
+ (printout t crlf crlf "Contact the internet service provider for assistance !!!" crlf crlf crlf))
+
+
+(defrule rule2
+ (computer not connects yes)
+ (Wi-Fi turns yes)
+ (other devices in the same network connect yes)
+ (Wi-Fi signal strength good yes)
+ (Wi-Fi password correct no)
+ =>
+ (printout t crlf crlf "Re-enter the correct Wi-Fi password. !!!" crlf crlf crlf))
+
+(defrule rule3
+ (computer not connects yes)
+ (Wi-Fi turns yes)
+ (other devices in the same network connect yes)
+ (Wi-Fi signal strength good no)
+ =>
+ (printout t crlf crlf "Move closer to the Wi-Fi router or check for interference !!!" crlf crlf crlf))
+
+(defrule rule4
+ (computer not connects yes)
+ (Wi-Fi turns yes)
+ (other devices in the same network connect no)
+ =>
+ (printout t crlf crlf "Check the router/modem and restart it !!!" crlf crlf crlf))
+
+(defrule p7
+ (computer not connects yes)
+ (Wi-Fi turns no)
+ =>
+ (printout t crlf crlf "Is router/modem plugged in?(yes/no) " crlf "Your answer: ")
+ (assert (router plugged in (read))))
+
+(defrule p8
+ (computer not connects yes)
+ (Wi-Fi turns no)
+ (router plugged in yes)
+ =>
+ (printout t crlf crlf "Is internet connection activated?(yes/no) " crlf "Your answer: ")
+ (assert (internet connection activated (read))))
+
+(defrule rule5
+ (computer not connects yes)
+ (Wi-Fi turns no)
+ (router plugged in yes)
+ (internet connection activated yes)
+ =>
+ (printout t crlf crlf "Restart the computer and try to connect again !!!" crlf crlf crlf))
+
+(defrule rule6
+ (computer not connects yes)
+ (Wi-Fi turns no)
+ (router plugged in yes)
+ (internet connection activated no)
+ =>
+ (printout t crlf crlf "Activate the internet connection !!!" crlf crlf crlf))
+
+(defrule rule7
+ (computer not connects yes)
+ (Wi-Fi turns no)
+ (router plugged in no)
+ =>
+ (printout t crlf crlf "Plug router properly !!!" crlf crlf crlf))
+
+(deffacts startup(start))
